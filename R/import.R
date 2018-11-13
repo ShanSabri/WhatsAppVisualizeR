@@ -65,14 +65,14 @@ omit_image_msgs <- function(x, omit=TRUE){
 #'
 #' @examples
 clean_chat <- function(x, omit_flag = TRUE){
- x %>%
+ return(x %>%
    tibble::as.tibble() %>%
    dplyr::mutate_if(is.factor, as.character) %>%
    dplyr::filter(., ! grepl("changed|added|removed|created", USER)) %>%
    dplyr::filter(., ! is.na(MESSAGE) | ! is.na(USER)) %>%
    dplyr::mutate(., NCHAR = nchar(as.character(MESSAGE), type = "chars")) %>%
    droplevels.data.frame() %>%
-   omit_image_msgs(omit = omit_flag)
+   omit_image_msgs(omit = omit_flag))
 }
 
 
