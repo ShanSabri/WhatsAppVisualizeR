@@ -1,7 +1,7 @@
 Package: WhatsAppVisualizeR
 Type: Package
 Title: WhatsApp chat analysis 
-Version: 1.0.1
+Version: 1.0.0
 Author: Shan Sabri <ShanASabri@gmail.com>
 Maintainer: Shan Sabri <ShanASabri@gmail.com>
 Description: More about what it does (maybe more than one line)

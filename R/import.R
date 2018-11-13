@@ -10,19 +10,19 @@
 #' @importFrom stringr str_split_fixed str_trim
 #'
 #' @examples
-read_chat <- function(x){
+read_chat <- function(x) {
   chat <- readr::read_lines(x, locale = readr::locale(encoding = "UTF-8"))
   n_messages <- length(chat)
-  chat_df <- do.call(rbind.data.frame, lapply(seq(1, n_messages, by=1), function(l){
-    if(l > 1) {
+  chat_df <- do.call(rbind.data.frame, lapply(seq(1, n_messages, by = 1), function(l) {
+    if (l > 1) {
       l <- as.character(chat[l])
       # date <- lubridate::mdy(stringr::str_split_fixed(l, "\\[|, ", n=3)[2])
       # time <- lubridate::hms(stringr::str_split_fixed(l, "\\]|, ", n=3)[2])
-      date <- stringr::str_split_fixed(l, "\\[|, ", n=3)[2]
-      time <- stringr::str_split_fixed(l, "\\]|, ", n=3)[2]
-      usr <- stringr::str_split_fixed(l, "] |:", n=Inf)[4]
-      msg <- stringr::str_trim(stringr::str_split_fixed(l, ": ", n=Inf)[2])
-      data.frame(DATE=date, TIME=time, USER=usr, MESSAGE=msg)
+      date <- stringr::str_split_fixed(l, "\\[|, ", n = 3)[2]
+      time <- stringr::str_split_fixed(l, "\\]|, ", n = 3)[2]
+      usr <- stringr::str_split_fixed(l, "] |:", n = Inf)[4]
+      msg <- stringr::str_trim(stringr::str_split_fixed(l, ": ", n = Inf)[2])
+      data.frame(DATE = date, TIME = time, USER = usr, MESSAGE = msg)
     } else {
       NULL # remove group init message
     }
@@ -42,12 +42,12 @@ read_chat <- function(x){
 #' @importFrom dplyr filter
 #'
 #' @examples
-omit_image_msgs <- function(x, omit=TRUE){
- if(omit == TRUE) {
-   return(dplyr::filter(x, !  grepl("image omitted", MESSAGE)))
- } else {
-   return(x)
- }
+omit_image_msgs <- function(x, omit = TRUE) {
+  if (omit == TRUE) {
+    return(dplyr::filter(x, !grepl("image omitted", MESSAGE)))
+  } else {
+    return(x)
+  }
 }
 
 
@@ -64,15 +64,15 @@ omit_image_msgs <- function(x, omit=TRUE){
 #' @importFrom tibble as.tibble
 #'
 #' @examples
-clean_chat <- function(x, omit_flag = TRUE){
- return(x %>%
-   tibble::as.tibble() %>%
-   dplyr::mutate_if(is.factor, as.character) %>%
-   dplyr::filter(., ! grepl("changed|added|removed|created", USER)) %>%
-   dplyr::filter(., ! is.na(MESSAGE) | ! is.na(USER)) %>%
-   dplyr::mutate(., NCHAR = nchar(as.character(MESSAGE), type = "chars")) %>%
-   droplevels.data.frame() %>%
-   omit_image_msgs(omit = omit_flag))
+clean_chat <- function(x, omit_flag = TRUE) {
+  return(x %>%
+    tibble::as.tibble() %>%
+    dplyr::mutate_if(is.factor, as.character) %>%
+    dplyr::filter(., !grepl("changed|added|removed|created", USER)) %>%
+    dplyr::filter(., !is.na(MESSAGE) | !is.na(USER)) %>%
+    dplyr::mutate(., NCHAR = nchar(as.character(MESSAGE), type = "chars")) %>%
+    droplevels.data.frame() %>%
+    omit_image_msgs(omit = omit_flag))
 }
 
 
@@ -88,10 +88,10 @@ clean_chat <- function(x, omit_flag = TRUE){
 #' @import dplyr
 #'
 #' @examples
-import <- function(x, clean = TRUE, omit_image_messages = TRUE){
- if(clean == TRUE) {
-   x %>%  read_chat(.) %>% clean_chat(., omit_flag = omit_image_messages)
- } else {
-   x %>% read_chat(.)
- }
+import <- function(x, clean = TRUE, omit_image_messages = TRUE) {
+  if (clean == TRUE) {
+    x %>% read_chat(.) %>% clean_chat(., omit_flag = omit_image_messages)
+  } else {
+    x %>% read_chat(.)
+  }
 }
