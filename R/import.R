@@ -30,7 +30,6 @@ read_chat <- function(x) {
 }
 
 
-
 #' Helper function to filter for omitted images
 #'
 #' @param x WhatsApp chat data

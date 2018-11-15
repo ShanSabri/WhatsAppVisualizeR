@@ -29,6 +29,15 @@ chat <- import(paste(getwd(), "test/data/chat.txt", sep="/"),
 chat
 
 
+# CHAT DURATION
+chat_timespan(chat)
+
+
+# MOST ACTIVE DAY
+messages_per_day(chat, by_user = FALSE)
+messages_per_day(chat, by_user = TRUE) 
+
+
 # EXPORT CLEANED WHATSAPP CHAT DATA
 export(chat, 
        out = paste(getwd(), "test/data/chat_clean.txt.gz", sep="/"), 

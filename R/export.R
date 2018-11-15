@@ -7,8 +7,10 @@
 #' @return
 #' @export
 #'
+#' @importFrom readr write_tsv
 #' @examples
 export <- function(x, out = "", compress = TRUE) {
   if (compress) out <- gzfile(out)
-  write.table(x, file = out, sep = "\t", col.names = NA, row.names = TRUE, quote = FALSE)
+  # write.table(x, file = out, sep = "\t", col.names = NA, row.names = TRUE, quote = FALSE)
+  readr::write_tsv(x, path = out, na = "NA", append = FALSE, col_names = TRUE)
 }
