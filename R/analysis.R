@@ -46,6 +46,8 @@ to_group_by <- function(x, by_user = TRUE) {
 #' @return a \code{tibble} containing the number of messages sent stratified by day
 #' @export
 #'
+#' @importFrom dplyr transmute arrange count ungroup
+#'
 #' @import dplyr
 #' @examples
 messages_per_day <- function(x, by_user = TRUE){
@@ -55,6 +57,8 @@ messages_per_day <- function(x, by_user = TRUE){
 
   if(by_user == TRUE) query <- query %>% dplyr::arrange(desc(DATE))
   else query <- query %>% dplyr::arrange(desc(n))
+
+  query <- query %>% ungroup %>% dplyr::mutate(DATE = as.Date(DATE, format = '%m/%d/%y'))
 
   return(query)
 }
