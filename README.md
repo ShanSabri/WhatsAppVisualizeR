@@ -42,7 +42,7 @@ messages_per_day(chat, by_user = TRUE) %>% # stratified by user
   labs(y = "Number of sent messages", fill = "") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8)) 
 ```
-![messages_per_day_by_user](examples/messages_per_day_by_user.png)
+![messages_per_day_by_user](https://raw.githubusercontent.com/ShanSabri/WhatsAppVisualizeR/master/example/messages_per_day_by_user.png)
 
 
 Export chat data
